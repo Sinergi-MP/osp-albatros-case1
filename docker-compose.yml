@@ -8,8 +8,9 @@ networks:
 
 services:
   osp_ejabberd:
-    build: ./osp-ejabberd
-    # image: deamos/osp-ejabberd
+          #build: ./osp-ejabberd
+    container_name: osp_ejabberd
+    image: deamos/osp-ejabberd
     restart: unless-stopped
 
     mem_limit: 256m
@@ -22,9 +23,9 @@ services:
     environment:
       - EJABBERD_XMLRPC_ALLOWIP=0.0.0.0/0
       - EJABBERD_PASSWORD=changeme
-      - EJABBERD_DOMAIN=osp.example.com
+      - EJABBERD_DOMAIN=192.168.1.4
       - OSP_API_PROTOCOL=http
-      - OSP_API_DOMAIN=osp.example.com
+      - OSP_API_DOMAIN=192.168.1.4
     #labels:
     #  - "traefik.enable=true"
     #  - "traefik.http.routers.ejabberd.entrypoints=websecure"
@@ -39,8 +40,9 @@ services:
       - web
 
   osp_core:
-    build: ./osp-core
-    # image: deamos/osp-core
+          #build: ./osp-core
+    container_name: osp_core
+    image: deamos/osp-core
     restart: unless-stopped
 
     mem_limit: 2048m
@@ -58,7 +60,7 @@ services:
     ports:
       - '80'
     environment:
-      - OSP_SERVER_ADDRESS=osp.example.com
+      - OSP_SERVER_ADDRESS=192.168.1.4
       - OSP_REDIS_HOST=osp_redis
       - OSP_REDIS_PORT=6379
       - OSP_REDIS_PASSWORD=
@@ -69,13 +71,13 @@ services:
       - OSP_CORE_REQUIREEMAILREGISTRATION=False
       - OSP_EJABBERD_PASSWORD=changeme
       - OSP_EJABBERD_RPCHOST=osp_ejabberd
-      - OSP_EJABBERD_BOSHDOMAIN=ejabberd.example.com
-      - OSP_SMTP_SENDAS=osp@email.com
-      - OSP_SMTP_SERVERADDRESS=smtp.email.com
-      - OSP_SMTP_SERVERPORT=25
-      - OSP_SMTP_ENCRYPTION=none
-      - OSP_SMTP_USERNAME=
-      - OSP_SMTP_PASSWORD=
+      - OSP_EJABBERD_BOSHDOMAIN=192.168.1.4
+      - OSP_SMTP_SENDAS=noreply@tesis.co.id
+      - OSP_SMTP_SERVERADDRESS=srv149.niagahoster.com
+      - OSP_SMTP_SERVERPORT=465
+      - OSP_SMTP_ENCRYPTION=ssl
+      - OSP_SMTP_USERNAME=noreply@tesis.co.id
+      - OSP_SMTP_PASSWORD=4Dmintesis123#@!
       - OSP_RTMP_SERVER=osp_rtmp
       # - TZ=ETC/UTC
     volumes:
@@ -93,8 +95,9 @@ services:
     entrypoint: ["/opt/osp/docker-files.d/wait-for-it.sh", "osp_db:3306", "-t", "60", "--", "/opt/osp/docker-files.d/entrypoint.sh"]
 
   osp_celery:
-    build: ./osp-core
-    # image: deamos/osp-core
+          #build: ./osp-core
+    container_name: osp_celery
+    image: deamos/osp-core
     restart: unless-stopped
 
     mem_limit: 2048m
@@ -102,7 +105,7 @@ services:
     mem_reservation: 2048m
 
     environment:
-      - OSP_SERVER_ADDRESS=osp.example.com
+      - OSP_SERVER_ADDRESS=192.168.1.4
       - OSP_REDIS_HOST=osp_redis
       - OSP_REDIS_PORT=6379
       - OSP_REDIS_PASSWORD=
@@ -113,13 +116,13 @@ services:
       - OSP_CORE_REQUIREEMAILREGISTRATION=False
       - OSP_EJABBERD_PASSWORD=changeme
       - OSP_EJABBERD_RPCHOST=osp_ejabberd
-      - OSP_EJABBERD_BOSHDOMAIN=ejabberd.example.com
-      - OSP_SMTP_SENDAS=osp@email.com
-      - OSP_SMTP_SERVERADDRESS=smtp.email.com
-      - OSP_SMTP_SERVERPORT=25
-      - OSP_SMTP_ENCRYPTION=none
-      - OSP_SMTP_USERNAME=
-      - OSP_SMTP_PASSWORD=
+      - OSP_EJABBERD_BOSHDOMAIN=192.168.1.4
+      - OSP_SMTP_SENDAS=noreply@tesis.co.id
+      - OSP_SMTP_SERVERADDRESS=srv149.niagahoster.com
+      - OSP_SMTP_SERVERPORT=465
+      - OSP_SMTP_ENCRYPTION=ssl
+      - OSP_SMTP_USERNAME=noreply@tesis.co.id
+      - OSP_SMTP_PASSWORD=4Dmintesis123#@!
       - OSP_CORE_TYPE=celery
       # - TZ=ETC/UTC
     volumes:
@@ -137,8 +140,9 @@ services:
     entrypoint: ["/opt/osp/docker-files.d/wait-for-it.sh", "osp_db:3306", "-t", "60", "--", "/opt/osp/docker-files.d/entrypoint.sh"]
 
   osp_celery_beat:
-    build: ./osp-core
-    # image: deamos/osp-core
+          #build: ./osp-core
+    container_name: osp_celery_beat
+    image: deamos/osp-core
     restart: unless-stopped
 
     mem_limit: 2048m
@@ -146,7 +150,7 @@ services:
     mem_reservation: 2048m
 
     environment:
-      - OSP_SERVER_ADDRESS=osp.example.com
+      - OSP_SERVER_ADDRESS=192.168.1.4
       - OSP_REDIS_HOST=osp_redis
       - OSP_REDIS_PORT=6379
       - OSP_REDIS_PASSWORD=
@@ -157,13 +161,13 @@ services:
       - OSP_CORE_REQUIREEMAILREGISTRATION=False
       - OSP_EJABBERD_PASSWORD=changeme
       - OSP_EJABBERD_RPCHOST=osp_ejabberd
-      - OSP_EJABBERD_BOSHDOMAIN=ejabberd.example.com
-      - OSP_SMTP_SENDAS=osp@email.com
-      - OSP_SMTP_SERVERADDRESS=smtp.email.com
-      - OSP_SMTP_SERVERPORT=25
-      - OSP_SMTP_ENCRYPTION=none
-      - OSP_SMTP_USERNAME=
-      - OSP_SMTP_PASSWORD=
+      - OSP_EJABBERD_BOSHDOMAIN=192.168.1.4
+      - OSP_SMTP_SENDAS=noreply@tesis.co.id
+      - OSP_SMTP_SERVERADDRESS=srv149.niagahoster.com
+      - OSP_SMTP_SERVERPORT=465
+      - OSP_SMTP_ENCRYPTION=ssl
+      - OSP_SMTP_USERNAME=noreply@tesis.co.id
+      - OSP_SMTP_PASSWORD=4Dmintesis123#@!
       - OSP_CORE_TYPE=beat
       # - TZ=ETC/UTC
     volumes:
@@ -181,8 +185,9 @@ services:
     entrypoint: [ "/opt/osp/docker-files.d/wait-for-it.sh", "osp_db:3306", "-t", "60", "--", "/opt/osp/docker-files.d/entrypoint.sh" ]
 
   osp_rtmp:
-    build: ./osp-rtmp
-    # image: deamos/osp-rtmp
+          #build: ./osp-rtmp
+    container_name: osp_rtmp
+    image: deamos/osp-rtmp
     restart: unless-stopped
     mem_limit: 2048m
     memswap_limit: 2304m
@@ -204,6 +209,7 @@ services:
       - osp_core
 
   osp_db:
+    container_name: osp_db
     image: mariadb
     restart: unless-stopped
     mem_limit: 256m
@@ -227,6 +233,7 @@ services:
       start_period: 30s
 
   osp_redis:
+    container_name: osp_redis
     image: redis
     restart: unless-stopped
     mem_limit: 128m
