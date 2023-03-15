@@ -23,9 +23,9 @@ services:
     environment:
       - EJABBERD_XMLRPC_ALLOWIP=0.0.0.0/0
       - EJABBERD_PASSWORD=changeme
-      - EJABBERD_DOMAIN=192.168.1.4
+      - EJABBERD_DOMAIN=192.168.1.5
       - OSP_API_PROTOCOL=http
-      - OSP_API_DOMAIN=192.168.1.4
+      - OSP_API_DOMAIN=192.168.1.5
     #labels:
     #  - "traefik.enable=true"
     #  - "traefik.http.routers.ejabberd.entrypoints=websecure"
@@ -60,18 +60,18 @@ services:
     ports:
       - '80'
     environment:
-      - OSP_SERVER_ADDRESS=192.168.1.4
+      - OSP_SERVER_ADDRESS=192.168.1.5
       - OSP_REDIS_HOST=osp_redis
       - OSP_REDIS_PORT=6379
       - OSP_REDIS_PASSWORD=
-      - OSP_CORE_DB=mysql+pymysql://osp:REPLACEOSPDBPASSWORD@osp_db/osp
-      - OSP_CORE_SECRETKEY=REPLACEME_osp_flask_secret_REPLACEME
-      - OSP_CORE_PASSWORD_SALT=REPLACEME_osp_flask_salt_REPLACEME
+      - OSP_CORE_DB=mysql+pymysql://osp:123456@osp_db/osp
+      - OSP_CORE_SECRETKEY=ea6d012b93e3425e98b0dd540e4e5a04
+      - OSP_CORE_PASSWORD_SALT=ea6d012b93e3425e98b0dd540e4e5a04
       - OSP_CORE_ALLOWREGISTRATION=True
       - OSP_CORE_REQUIREEMAILREGISTRATION=False
       - OSP_EJABBERD_PASSWORD=changeme
       - OSP_EJABBERD_RPCHOST=osp_ejabberd
-      - OSP_EJABBERD_BOSHDOMAIN=192.168.1.4
+      - OSP_EJABBERD_BOSHDOMAIN=192.168.1.5
       - OSP_SMTP_SENDAS=noreply@tesis.co.id
       - OSP_SMTP_SERVERADDRESS=srv149.niagahoster.com
       - OSP_SMTP_SERVERPORT=465
@@ -105,18 +105,18 @@ services:
     mem_reservation: 2048m
 
     environment:
-      - OSP_SERVER_ADDRESS=192.168.1.4
+      - OSP_SERVER_ADDRESS=192.168.1.5
       - OSP_REDIS_HOST=osp_redis
       - OSP_REDIS_PORT=6379
       - OSP_REDIS_PASSWORD=
-      - OSP_CORE_DB=mysql+pymysql://osp:REPLACEOSPDBPASSWORD@osp_db/osp
-      - OSP_CORE_SECRETKEY=REPLACEME_osp_flask_secret_REPLACEME
-      - OSP_CORE_PASSWORD_SALT=REPLACEME_osp_flask_salt_REPLACEME
+      - OSP_CORE_DB=mysql+pymysql://osp:123456@osp_db/osp
+      - OSP_CORE_SECRETKEY=ea6d012b93e3425e98b0dd540e4e5a04
+      - OSP_CORE_PASSWORD_SALT=ea6d012b93e3425e98b0dd540e4e5a04
       - OSP_CORE_ALLOWREGISTRATION=True
       - OSP_CORE_REQUIREEMAILREGISTRATION=False
       - OSP_EJABBERD_PASSWORD=changeme
       - OSP_EJABBERD_RPCHOST=osp_ejabberd
-      - OSP_EJABBERD_BOSHDOMAIN=192.168.1.4
+      - OSP_EJABBERD_BOSHDOMAIN=192.168.1.5
       - OSP_SMTP_SENDAS=noreply@tesis.co.id
       - OSP_SMTP_SERVERADDRESS=srv149.niagahoster.com
       - OSP_SMTP_SERVERPORT=465
@@ -150,18 +150,18 @@ services:
     mem_reservation: 2048m
 
     environment:
-      - OSP_SERVER_ADDRESS=192.168.1.4
+      - OSP_SERVER_ADDRESS=192.168.1.5
       - OSP_REDIS_HOST=osp_redis
       - OSP_REDIS_PORT=6379
       - OSP_REDIS_PASSWORD=
-      - OSP_CORE_DB=mysql+pymysql://osp:REPLACEOSPDBPASSWORD@osp_db/osp
-      - OSP_CORE_SECRETKEY=REPLACEME_osp_flask_secret_REPLACEME
-      - OSP_CORE_PASSWORD_SALT=REPLACEME_osp_flask_salt_REPLACEME
+      - OSP_CORE_DB=mysql+pymysql://osp:123456@osp_db/osp
+      - OSP_CORE_SECRETKEY=ea6d012b93e3425e98b0dd540e4e5a04
+      - OSP_CORE_PASSWORD_SALT=ea6d012b93e3425e98b0dd540e4e5a04
       - OSP_CORE_ALLOWREGISTRATION=True
       - OSP_CORE_REQUIREEMAILREGISTRATION=False
       - OSP_EJABBERD_PASSWORD=changeme
       - OSP_EJABBERD_RPCHOST=osp_ejabberd
-      - OSP_EJABBERD_BOSHDOMAIN=192.168.1.4
+      - OSP_EJABBERD_BOSHDOMAIN=192.168.1.5
       - OSP_SMTP_SENDAS=noreply@tesis.co.id
       - OSP_SMTP_SERVERADDRESS=srv149.niagahoster.com
       - OSP_SMTP_SERVERPORT=465
@@ -212,15 +212,15 @@ services:
     container_name: osp_db
     image: mariadb
     restart: unless-stopped
-    mem_limit: 256m
-    memswap_limit: 512m
+    #mem_limit: 256m
+    #memswap_limit: 512m
     mem_reservation: 256m
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     volumes:
       - /srv/docker/osp-mariadb:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=REPLACEOSPROOTDBPASSWORD
-      - MYSQL_PASSWORD=REPLACEOSPDBPASSWORD
+      - MYSQL_ROOT_PASSWORD=ROOT
+      - MYSQL_PASSWORD=123456
       - MYSQL_DATABASE=osp
       - MYSQL_USER=osp
     networks:
